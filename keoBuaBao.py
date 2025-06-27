@@ -5,8 +5,11 @@ choices = {'rock': 0, 'paper': 1, 'scissors': 2}
 botTotal = 0
 userTotal = 0
 
-rounds = eval(input("how many rounds do you want to play versus bot? "))
-
+rounds= input("How many rounds do you want to play versus bot? ").strip()
+while not rounds.isdigit() or int(rounds) <= 0:
+        rounds= input("Please choose a valid round number: ").strip()
+       
+rounds = int(rounds)
 
 def KeoBuaBao(userInput):
     global botTotal, userTotal
@@ -26,9 +29,9 @@ def KeoBuaBao(userInput):
 
 for i in range(rounds):
     print(f"round {i+1}:")
-    userInput = input("please choose either rock, paper or scissors: ")
+    userInput = input("please choose either rock, paper or scissors: ").lower().strip()
     while userInput not in choices:
-        userInput = input("invalid choices, please choose either rock, paper or scissors: ").lower()
+        userInput = input("invalid choices, please choose either rock, paper or scissors: ").lower().strip()
     KeoBuaBao(userInput)
     print("------------")
 
