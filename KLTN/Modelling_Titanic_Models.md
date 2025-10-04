@@ -15,6 +15,17 @@ Phần *Modeling* trong notebook tiến hành biến tập dữ liệu Titanic s
 - **Accuracy**: tỉ lệ dự đoán đúng trên tổng mẫu; đây là tiêu chí được dùng trong notebook để so sánh mô hình.
 - **VotingClassifier (Ensemble)**: kết hợp nhiều mô hình con (ở đây là Decision Tree, Random Forest, Logistic Regression) và lấy trung bình xác suất (soft voting) để ra dự đoán cuối cùng.
 
+## 2.5 Feature Engineering quan trọng
+- `Sex`: mã hóa one-hot (`Sex_female`, `Sex_male`) để mô hình phản ánh rõ tỷ lệ sống sót cao hơn của nữ.
+- `Pclass`: one-hot (`Pclass_1`, `Pclass_2`, `Pclass_3`) giúp tách riêng tác động từng hạng vé đến xác suất sống sót.
+- `Age`: điền thiếu bằng median theo nhóm (`Pclass`, `SibSp`, `Parch`), giữ dạng liên tục cho mô hình; nếu cần dễ trình bày có thể tạo thêm `AgeQuantile` nhưng phải kiểm chứng vì binning có thể làm giảm độ chính xác.
+- `Fare`: chia thành 5 nhóm theo quantile (`FareQuantile`) để giảm ảnh hưởng ngoại lệ và làm nổi bật xu hướng “giá vé cao → cơ hội sống sót lớn”.
+- `SibSp` + `Parch`: gộp thành `FamilySize` và cờ `IsAlone` nêu bật lợi thế của gia đình nhỏ (1–3 người đi cùng).
+- `Cabin`: rút ký tự đầu thành `Deck`, gán `Unknown` khi thiếu để vẫn giữ thông tin vị trí khoang.
+- `Embarked`: one-hot (`Embarked_C`, `_Q`, `_S`) do khách lên tàu ở Cherbourg có tỷ lệ sống sót cao hơn.
+- `Ticket`: chuẩn hóa prefix và one-hot các nhóm lặp lại nhằm nhận diện những nhóm hành khách đi chung.
+
+
 ## 3. Giải thích từng ô code chính
 ### 3.1. Import thư viện (Cell 125)
 ```python
